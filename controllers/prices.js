@@ -1,4 +1,4 @@
-const PriceSnapshot = require('../models/priceSnapshot');
+const PriceSnapshot = require('../models/pricesnapshots');
 
 const getFlightPrices = async (req, res) => {
   try {

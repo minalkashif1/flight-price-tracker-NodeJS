@@ -1,5 +1,5 @@
-const Flight = require('../models/flight');
-const PriceSnapshot = require('../models/priceSnapshot');
+const Flight = require('../models/flights');
+const PriceSnapshot = require('../models/pricesnapshots');
 
 const hybridSearch = async (req, res) => {
   try {
