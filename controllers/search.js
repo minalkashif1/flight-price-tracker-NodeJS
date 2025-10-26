@@ -69,3 +69,5 @@ const hybridSearch = async (req, res) => {
 };
 
 module.exports = { hybridSearch };
+
+//text-based search, recency of last price fetch, and current price data to rank flight options.

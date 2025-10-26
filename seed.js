@@ -1,4 +1,4 @@
-// seed.js
+
 const mongoose = require('mongoose');
 
 const FlightSchema = new mongoose.Schema({
@@ -33,16 +33,16 @@ async function seed() {
   await Snapshot.deleteMany({});
 
   const flights = [
-    { flightId:'F001', route:{from:'LHE', to:'BKK'}, airline:'AirExample', flightDate: new Date('2026-01-15'), tracking:{enabled:true, startThresholdDaysBefore:180, interval:'1w'}, metadata:{cabin:'economy'}, createdAt: new Date() },
-    { flightId:'F002', route:{from:'SIN', to:'BKK'}, airline:'BudgetSky', flightDate: new Date('2025-12-05'), tracking:{enabled:true, startThresholdDaysBefore:90, interval:'1d'}, metadata:{cabin:'economy'}, createdAt: new Date() },
-    { flightId:'F003', route:{from:'LHE', to:'JED'}, airline:'RoyalAir', flightDate: new Date('2025-11-20'), tracking:{enabled:true, startThresholdDaysBefore:60, interval:'1w'}, metadata:{cabin:'business'}, createdAt: new Date() },
-    { flightId:'F004', route:{from:'DXB', to:'LHR'}, airline:'SkyConnect', flightDate: new Date('2026-02-10'), tracking:{enabled:true, startThresholdDaysBefore:120, interval:'1w'}, metadata:{cabin:'economy'}, createdAt: new Date() },
-    { flightId:'F005', route:{from:'KHI', to:'IST'}, airline:'EasternAir', flightDate: new Date('2025-12-25'), tracking:{enabled:true, startThresholdDaysBefore:90, interval:'1d'}, metadata:{cabin:'economy'}, createdAt: new Date() },
-    { flightId:'F006', route:{from:'LHE', to:'DXB'}, airline:'AirExample', flightDate: new Date('2026-03-05'), tracking:{enabled:true, startThresholdDaysBefore:180, interval:'1w'}, metadata:{cabin:'economy'}, createdAt: new Date() },
-    { flightId:'F007', route:{from:'BKK', to:'SIN'}, airline:'BudgetSky', flightDate: new Date('2026-01-01'), tracking:{enabled:true, startThresholdDaysBefore:120, interval:'1d'}, metadata:{cabin:'economy'}, createdAt: new Date() },
-    { flightId:'F008', route:{from:'JED', to:'LHE'}, airline:'RoyalAir', flightDate: new Date('2025-11-28'), tracking:{enabled:true, startThresholdDaysBefore:60, interval:'1w'}, metadata:{cabin:'business'}, createdAt: new Date() },
-    { flightId:'F009', route:{from:'SIN', to:'HKG'}, airline:'AsiaFly', flightDate: new Date('2026-02-20'), tracking:{enabled:true, startThresholdDaysBefore:120, interval:'1w'}, metadata:{cabin:'economy'}, createdAt: new Date() },
-    { flightId:'F010', route:{from:'LHE', to:'CPE'}, airline:'IslandAir', flightDate: new Date('2026-04-01'), tracking:{enabled:true, startThresholdDaysBefore:180, interval:'1w'}, metadata:{cabin:'economy'}, createdAt: new Date() }
+    { flightId:'F001', route:{from:'LHE', to:'BKK'}, airline:'AirExample', flightDate: new Date('2026-01-15'), tracking:{enabled:true, startThresholdDaysBefore:180, interval:'10s'}, metadata:{cabin:'economy'}, createdAt: new Date() },
+    { flightId:'F002', route:{from:'SIN', to:'BKK'}, airline:'BudgetSky', flightDate: new Date('2025-12-05'), tracking:{enabled:true, startThresholdDaysBefore:90, interval:'10s'}, metadata:{cabin:'economy'}, createdAt: new Date() },
+    { flightId:'F003', route:{from:'LHE', to:'JED'}, airline:'RoyalAir', flightDate: new Date('2025-11-20'), tracking:{enabled:true, startThresholdDaysBefore:60, interval:'10s'}, metadata:{cabin:'business'}, createdAt: new Date() },
+    { flightId:'F004', route:{from:'DXB', to:'LHR'}, airline:'SkyConnect', flightDate: new Date('2026-02-10'), tracking:{enabled:true, startThresholdDaysBefore:120, interval:'10s'}, metadata:{cabin:'economy'}, createdAt: new Date() },
+    { flightId:'F005', route:{from:'KHI', to:'IST'}, airline:'EasternAir', flightDate: new Date('2025-12-25'), tracking:{enabled:true, startThresholdDaysBefore:90, interval:'10s'}, metadata:{cabin:'economy'}, createdAt: new Date() },
+    { flightId:'F006', route:{from:'LHE', to:'DXB'}, airline:'AirExample', flightDate: new Date('2026-03-05'), tracking:{enabled:true, startThresholdDaysBefore:180, interval:'10s'}, metadata:{cabin:'economy'}, createdAt: new Date() },
+    { flightId:'F007', route:{from:'BKK', to:'SIN'}, airline:'BudgetSky', flightDate: new Date('2026-01-01'), tracking:{enabled:true, startThresholdDaysBefore:120, interval:'10s'}, metadata:{cabin:'economy'}, createdAt: new Date() },
+    { flightId:'F008', route:{from:'JED', to:'LHE'}, airline:'RoyalAir', flightDate: new Date('2025-11-28'), tracking:{enabled:true, startThresholdDaysBefore:60, interval:'10s'}, metadata:{cabin:'business'}, createdAt: new Date() },
+    { flightId:'F009', route:{from:'SIN', to:'HKG'}, airline:'AsiaFly', flightDate: new Date('2026-02-20'), tracking:{enabled:true, startThresholdDaysBefore:120, interval:'10s'}, metadata:{cabin:'economy'}, createdAt: new Date() },
+    { flightId:'F010', route:{from:'LHE', to:'CPE'}, airline:'IslandAir', flightDate: new Date('2026-04-01'), tracking:{enabled:true, startThresholdDaysBefore:180, interval:'10s'}, metadata:{cabin:'economy'}, createdAt: new Date() }
   ];
 
   await Flight.insertMany(flights);

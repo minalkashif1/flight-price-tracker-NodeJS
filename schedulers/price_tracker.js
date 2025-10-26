@@ -17,8 +17,9 @@ class PriceTracker {
       return;
     }
 
-    // Run every minute
-    this.scheduler = cron.schedule('* * * * *', async () => {
+    // Run every 10s
+    // Change cron to run every 10 seconds
+this.scheduler = cron.schedule('*/10 * * * * *', async () => {
       if (this.isRunning) return; // Prevent overlapping
       this.isRunning = true;
 
@@ -46,36 +47,40 @@ class PriceTracker {
 
   // Main price fetching logic
   async fetchPrices() {
-    const now = new Date();
-    const flights = await Flight.find({ 'tracking.enabled': true });
+  const now = new Date();
+  const flights = await Flight.find({ 'tracking.enabled': true });
+  
+  console.log(`[PriceTracker] Checking ${flights.length} flights...`);
 
-    for (const flight of flights) {
-      const lastFetch = flight.tracking.lastFetchedAt || new Date(0);
-      const interval = flight.tracking.interval || '1w';
-      const timeDiffMs = now - new Date(lastFetch);
+  for (const flight of flights) {
+    const lastFetch = flight.tracking.lastFetchedAt || new Date(0);
+    const interval = flight.tracking.interval || '1w';
+    const timeDiffMs = now - new Date(lastFetch);
+    const shouldFetch = this.shouldFetchNow(interval, timeDiffMs);
 
-      // Check if we should fetch based on interval
-      const shouldFetch = this.shouldFetchNow(interval, timeDiffMs);
-
-      // Check if within tracking window
-      const startDate = new Date(flight.flightDate);
-      startDate.setDate(startDate.getDate() - (flight.tracking.startThresholdDaysBefore || 7));
-      
-      if (shouldFetch && now >= startDate) {
-        await this.simulatePriceFetch(flight);
-      }
+    const startDate = new Date(flight.flightDate);
+    startDate.setDate(startDate.getDate() - (flight.tracking.startThresholdDaysBefore || 7));
+    
+    if (shouldFetch && now >= startDate) {
+      await this.simulatePriceFetch(flight);
     }
   }
+}
 
   shouldFetchNow(interval, timeDiffMs) {
-    const intervals = {
-      '15m': 15 * 60 * 1000,
-      '1h': 60 * 60 * 1000,
-      '1d': 24 * 60 * 60 * 1000,
-      '1w': 7 * 24 * 60 * 60 * 1000
-    };
-    return timeDiffMs >= (intervals[interval] || 60 * 60 * 1000);
-  }
+  const intervals = {
+    '10s': 10 * 1000,
+    '30s': 30 * 1000,
+    '1m': 1 * 60 * 1000,      // 1 minute
+    '15m': 15 * 60 * 1000,
+    '30m': 30 * 60 * 1000,
+    '1h': 60 * 60 * 1000,
+    '2h': 2 * 60 * 60 * 1000,
+    '1d': 24 * 60 * 60 * 1000,
+    '1w': 7 * 24 * 60 * 60 * 1000
+  };
+  return timeDiffMs >= (intervals[interval] || 60 * 60 * 1000);
+}
 
   async simulatePriceFetch(flight) {
     try {

@@ -37,13 +37,13 @@ const FlightSchema = new mongoose.Schema({
       type: Number, 
       default: 7, 
       min: 1, 
-      max: 30 
+      max: 365  
     },
     interval: { 
-      type: String, 
-      enum: ['1h', '2h', '4h', '6h', '12h', '24h'],
-      default: '2h' 
-    },
+  type: String, 
+  enum: ['10s', '30s', '1m', '15m', '30m', '1h', '2h', '1d', '1w'],
+  default: '10s' 
+},
     lastFetchedAt: Date
   },
   metadata: { 
@@ -61,4 +61,3 @@ FlightSchema.index({ airline: 1, 'route.from': 1 });
 
 // Create and export the model
 module.exports = mongoose.models.Flight || mongoose.model("Flight", FlightSchema);
-
